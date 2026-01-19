@@ -2,87 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do App</title>
-    <style>
-        body {
-             font-family: Arial;
-        padding: 40px; 
-    }
-        input {
-             padding:8px;
-    }
-        button {
-             padding:8px;
-             margin-left: 5px;
-    }
-    li{
-        margin-top: 10px;
-    }
-    .completed {
-        text-decoration: line-through;
-        color: gray;
-    }
-
- </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h2>My To Do List</h2>
     <input type="text" id="taskInput" placeholder="Enter task">
     <button id="addBtn">Add</button>
     <ul id="taskList"></ul>
-    <script>
-        const input = document.getElementById("taskInput");
-        const addBtn = document.getElementById("addBtn");
-        const taskList = document.getElementById("taskList");
-        let tasks = 
-        JSON.parse(localStorage.getItem('tasks')) || [];
-        function addTask() {
-            if (input.value ===  "") return;
-            const task = {
-                id: Date.now(),
-                text: input.value,
-                completed: false
-            };
-              tasks.push(task);
-            input.value = "";
-            renderTasks();
-        }
-        function renderTasks() {
-                taskList.innerHTML = "";
-                tasks.forEach(task => {
-                    const li =
-            document.createElement("li");
-                   if (task.completed) {
-                        li.classList.add("completed");
-                    }
-                    li.innerHTML = `
-                    <span>${task.text}</span>
-                    <button onclick="deleteTask(${task.id})">Delete</button> `;
-                    li.addEventListener("click", (e) => {
-                        if(e.target.tagName !== "BUTTON")
-                    { toggleTask(task.id);
-                    }});
-                    taskList.appendChild(li);
-                });
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-            }
-        function toggleTask(id) {
-                tasks = tasks.map(task => 
-                    task.id === id ? {...task, completed: !task.completed} : task
-                );
-                renderTasks();
-            }
-        function deleteTask(id) {
-                tasks = tasks.filter(task => task.id !== id);
-                renderTasks();
-        }
-        addBtn.addEventListener("click", addTask);
-        input.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") {
-                addTask();
-            }
-        });
-        renderTasks();
-    </script>
+
+    <script src="script.js"></script>
 </body>
 </html>
